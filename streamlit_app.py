@@ -38,5 +38,9 @@ streamlit.header("The fruit load list contains")
 streamlit.dataframe(my_data_rows)
 
 fruit_choice = streamlit.text_input('What fruit would you like to add')
-my_cur.execute(f"insert into fruit_load_list (fruit_name) values ({fruit_choice})")
+try:
+  my_cur.execute(f"insert into fruit_load_list (fruit_name) values ({fruit_choice})")
+  my_cur.execute("commit")
+except Exception as e:
+  raise e
 streamlit.write(f'Thanks for adding ', fruit_choice)
